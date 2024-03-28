@@ -2,14 +2,15 @@ package controllers
 
 import (
 	"SpaceNewsWeb/models"
+	"SpaceNewsWeb/repo"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func FindArtciles(c *gin.Context) {
+func FindArticles(c *gin.Context) {
 	var articles []models.Article
 	// updates articles with all found articles
-	models.DB.Find(&articles)
+	repo.DB.Find(&articles)
 	c.JSON(http.StatusOK, gin.H{"data": articles})
 }
 
@@ -19,15 +20,15 @@ func CreateArticle(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	article := models.Article{Title: input.Title, Author: input.Author}
-	models.DB.Create(&article)
+	article := models.Article{Title: input.Title, Author: input.Author, Body: input.Body}
+	repo.DB.Create(&article)
 
 	c.JSON(http.StatusOK, gin.H{"data": article})
 }
 
 func FindArticle(c *gin.Context) {
 	var article models.Article
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
+	if err := repo.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -36,7 +37,7 @@ func FindArticle(c *gin.Context) {
 
 func UpdateArticle(c *gin.Context) {
 	var article models.Article
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
+	if err := repo.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -46,17 +47,17 @@ func UpdateArticle(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	models.DB.Model(&article).Updates(input)
+	repo.DB.Model(&article).Updates(input)
 	c.JSON(http.StatusOK, gin.H{"data": article})
 }
 
 func DeleteArticle(c *gin.Context) {
 	var article models.Article
-	if err := models.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
+	if err := repo.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
-	models.DB.Delete(&article)
+	repo.DB.Delete(&article)
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }
 
