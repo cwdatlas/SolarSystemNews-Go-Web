@@ -42,7 +42,6 @@ func InitRepoData() {
 			newArticle := models.Article{}
 			for scanner.Scan() {
 				text := scanner.Text()
-				fmt.Println(text)
 				if text == "<->" {
 					line = 0
 					DB.Create(&newArticle)
