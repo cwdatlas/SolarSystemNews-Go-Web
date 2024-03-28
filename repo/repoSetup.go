@@ -53,7 +53,10 @@ func InitRepoData() {
 				} else if line == 1 {
 					newArticle.Author = scanner.Text()
 					line++
-				} else if line > 1 {
+				} else if line == 2 {
+					newArticle.Location = scanner.Text()
+					line++
+				} else if line > 2 {
 					newArticle.Body += scanner.Text()
 					line++
 				}

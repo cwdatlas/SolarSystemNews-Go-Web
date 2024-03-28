@@ -1,5 +1,6 @@
 New Life on Venus
 From: Venus immigration agency, 10/8/2224 SST
+The Inner Systems
 Come to lovely Venus with is great sky cities like Vaccos, and Tenebra!
 50 kilometers over the surface of Venus is the best place to live in the System.
 No better place to raise a family than the sunny, warm days in the Vaccos suburbs.
@@ -8,6 +9,7 @@ Come today!
 <->
 New Mirror Project in Ganymede orbit
 From: Jovian Progress and Peoples Council, 10/3/2224 SST.
+Jovian System
 A new mega project is being built in orbit of IO. This project is meant to alter the local day length.
 The mirror is also meant to warm the surface to a more bearable temperature in preparation for larger
 terraforming projects. Our largest moon will soon be provided with adequate power to run large refineries
@@ -16,6 +18,7 @@ towards greatness for the Jovian system, more projects on the way. Гарног�
 <->
 Work on the Moon; What you need to know
 From The Luna Post, Shackleton, 10/2/2224 SST
+Terran System
 The Moon is the fastest growing sector in the settled systems, good work being the primary reason for that.
 The Space Docks all throughout the Terran system consume the vast majority of our mined and manufactured materials.
 To power The Terran military we must mine, and process more! The Democratic United System is providing pools of
