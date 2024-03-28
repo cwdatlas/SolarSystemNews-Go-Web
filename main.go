@@ -2,7 +2,7 @@ package main
 
 import (
 	"SpaceNewsWeb/controllers"
-	"SpaceNewsWeb/models"
+	"SpaceNewsWeb/repo"
 	"fmt"
 	"github.com/gin-gonic/gin"
 )
@@ -10,9 +10,10 @@ import (
 func main() {
 	r := gin.Default()
 
-	models.ConnectDatabase()
+	repo.ConnectDatabase()
+	repo.InitRepoData()
 
-	r.GET("/articles", controllers.FindArtciles)
+	r.GET("/articles", controllers.FindArticles)
 	r.POST("/article", controllers.CreateArticle)
 	r.GET("/articles/:id", controllers.FindArticle)
 	r.PATCH("articles/:id", controllers.UpdateArticle)
@@ -20,9 +21,7 @@ func main() {
 
 	//html
 	r.LoadHTMLGlob("templates/*")
-	r.GET("/:id", controllers.DisplayIndex)
-	r.GET("/front_page", controllers.FrontPage)
-	r.GET("post", controllers.PostTest)
+	r.GET("/", controllers.Index)
 	err := r.Run()
 	if err != nil {
 		fmt.Println("error occurred:", err)
