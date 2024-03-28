@@ -22,6 +22,8 @@ func main() {
 	//html
 	r.LoadHTMLGlob("templates/*")
 	r.GET("/", controllers.Index)
+	r.GET("/create_article", controllers.FormArticle)
+	r.POST("/create_article", controllers.ConsumeArtForm)
 	err := r.Run()
 	if err != nil {
 		fmt.Println("error occurred:", err)
