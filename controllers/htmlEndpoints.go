@@ -23,7 +23,6 @@ func Index(c *gin.Context) {
 	if len(title) < 1 {
 		repo.DB.Order("popularity desc, location").Find(&articles)
 	} else { // Search by if contains search value non caps sensitive
-		//todo add error handling to this, must return user feedback
 		generalSearch := "%" + title + "%"
 		if err := repo.DB.Where("title ILIKE ? OR location ILIKE ? OR author ILIKE ?", generalSearch, generalSearch, generalSearch).Find(&articles).Error; err != nil {
 			log.Println("Error occurred when accepting form", err)
