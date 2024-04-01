@@ -14,24 +14,66 @@
     </div>
     <div class="col-4 my-auto">
         <a href="/create_article" type="button" class="btn btn-secondary btn-md mx-1">Write an Article</a>
-        <div class="input-group my-1 input-group-sm">
-            <span class="input-group-text">Title</span>
-            <input type="text" class="form-control">
-        </div>
+
+        <form name="article_search" action="/" method="get">
+            <div class="input-group my-1 input-group-sm">
+                <span class="input-group-text">Includes</span>
+                <input type="text" name="search" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+
     </div>
 </header>
 <body class="container pt-5">
-<div class=>
 {{range .articles}}
-<div class="container px-3  my-5 border d-block">
-    <h3>{{.Title}}</h3>
+<div class="container mt-3">
+    <h2 class="display-5">{{.Title}}</h2>
     <h5>{{.Author}}</h5>
     <h6 class="small">{{.Location}}</h6>
-    <p>{{.Body}}</p>
+
+    <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#article-{{.ID}}">
+        Open Article
+    </button>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="article-{{.ID}}">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">{{.Title}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                {{.Body}}
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
 </div>
 {{end}}
-</div>
 </body>
+<script>
+    document.getElementById('article_search').onsubmit = function(e) {
+        // Prevent the default form submission
+        e.preventDefault();
+        // Get the value from the search input field
+        var search_word = document.getElementsByName('search')[0].value;
+        var actionURL = '/' + encodeURIComponent(search_word);
 
+        // Redirect the browser to the new URL
+        window.location.href = actionURL;
+    };
+</script>
 
 </html>
