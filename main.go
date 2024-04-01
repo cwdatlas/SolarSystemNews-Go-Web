@@ -3,8 +3,8 @@ package main
 import (
 	"SpaceNewsWeb/controllers"
 	"SpaceNewsWeb/repo"
-	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 )
 
 /*
@@ -14,6 +14,9 @@ import (
 func main() {
 	// Gets default router
 	r := gin.Default()
+
+	// Set global log structure
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	// Connect to database
 	repo.ConnectDatabase()
@@ -37,10 +40,10 @@ func main() {
 	r.GET("/create_article", controllers.FormArticle)     // Page that provides form
 	r.POST("/create_article", controllers.ConsumeArtForm) // Endpoint to post form to
 
-	// If error then print error and shutdown
+	// If error then print error
 	err := r.Run()
 	if err != nil {
-		fmt.Println("error occurred:", err)
+		log.Println("error occurred:", err)
 		return
 	}
 }
