@@ -33,7 +33,7 @@ func main() {
 
 	//Form and HTML endpoints
 	r.GET("/", controllers.Index)                         // Provides no param endpoint for index
-	r.GET("/:article_title", controllers.Index)           // provides search mechanism for index
+	r.GET("/:search", controllers.Index)                  // provides search mechanism for index
 	r.GET("/create_article", controllers.FormArticle)     // Page that provides form
 	r.POST("/create_article", controllers.ConsumeArtForm) // Endpoint to post form to
 
