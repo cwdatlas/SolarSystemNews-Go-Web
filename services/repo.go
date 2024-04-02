@@ -11,17 +11,22 @@ import (
  * Author Aidan Scott
  * this file is for accessing the repo
  * Includes all CRUD operations
+ * currently all methods are simple pass through methods, they do not add extra functionality,
+ * but provide extendability for the future
  */
 
+// Error handling using an error struct
 type dbError struct {
 	When time.Time
 	What string
 }
 
+// configure error
 func (e *dbError) Error() string {
 	return fmt.Sprintf("at %v, %s",
 		e.When, e.What)
 }
+
 func Create(article *models.Article) {
 	repo.DB.Create(article)
 }
