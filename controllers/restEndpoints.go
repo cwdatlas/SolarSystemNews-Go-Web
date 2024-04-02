@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"SpaceNewsWeb/models"
-	"SpaceNewsWeb/repo"
+	"SpaceNewsWeb/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -13,7 +13,7 @@ import (
 func FindArticles(c *gin.Context) {
 	var articles []models.Article
 	// updates articles with all found articles
-	repo.DB.Find(&articles)
+	services.GetMany(&articles)
 	c.JSON(http.StatusOK, gin.H{"data": articles})
 }
 
@@ -29,9 +29,9 @@ func CreateArticle(c *gin.Context) {
 		return
 	}
 	// Create article then save it
-	article := models.Article{Title: input.Title, Author: input.Author, Body: input.Body}
+	article := models.Article{Title: input.Title, Author: input.Author, Body: input.Body, Location: input.Location}
 	// todo add validation
-	repo.DB.Create(&article)
+	services.Create(&article)
 	c.JSON(http.StatusOK, gin.H{"data": article})
 }
 
@@ -41,7 +41,8 @@ func CreateArticle(c *gin.Context) {
 func FindArticle(c *gin.Context) {
 	var article models.Article
 	// uses where statement to find article
-	if err := repo.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
+	err := services.GetBy("id", c.Param("id"), &article)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -55,7 +56,7 @@ func FindArticle(c *gin.Context) {
 func UpdateArticle(c *gin.Context) {
 	var article models.Article
 	// Where to find article
-	if err := repo.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
+	if err := services.GetBy("id", c.Param("id"), &article); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
 		return
 	}
@@ -66,7 +67,7 @@ func UpdateArticle(c *gin.Context) {
 		return
 	}
 	// update article
-	repo.DB.Model(&article).Updates(input)
+	services.UpdateByUArt(&article, input)
 	c.JSON(http.StatusOK, gin.H{"data": article})
 }
 
@@ -75,11 +76,10 @@ func UpdateArticle(c *gin.Context) {
  */
 func DeleteArticle(c *gin.Context) {
 	var article models.Article
-	if err := repo.DB.Where("id = ?", c.Param("id")).First(&article).Error; err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Record not found!"})
+	// delete the article
+	if err := services.DeleteA("id", c.Param("id"), &article); err != nil {
+		c.JSON(http.StatusOK, gin.H{"error": err.Error()})
 		return
 	}
-	// delete the article
-	repo.DB.Delete(&article)
 	c.JSON(http.StatusOK, gin.H{"data": true})
 }
