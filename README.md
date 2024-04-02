@@ -41,4 +41,17 @@ To update an article you will need the exact title, so copy it from the article 
 Fill in the title entry with the title you want to edit then you can write your change to any other entry and it will replace the current
 section of the article.
 
-Go have fun looking at articles in the program! I hope you like my stories.
+### Closing
+To close the postgres database you will need to stop the container, then remove it.
+```shell script
+podman container stop SpaceWeb
+```
+
+```shell script
+podman container rm SpaceWeb
+```
+Then you can close the webapp by ctr^C in the terminal!
+
+#### Thank you
+Anzhela for debugging my program and for everyone that reads my articles!
+I hope you liked my stories.
