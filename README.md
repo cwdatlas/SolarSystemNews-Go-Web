@@ -15,7 +15,7 @@ git clone https://github.com/cwdatlas/SolarSystemNews-Go-Web
 Make sure your respective container engine is running docker/podman
 Then start the database container
 ```shell script
-git podman run --detach --name SpaceWeb --env POSTGRES_PASSWORD=12345 -p 5432:5432 docker.io/library/postgres
+podman run --detach --name SpaceWeb --env POSTGRES_PASSWORD=12345 -p 5432:5432 docker.io/library/postgres
 ```
 
 Move into the newly created directory
