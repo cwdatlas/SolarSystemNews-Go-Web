@@ -10,6 +10,11 @@ import (
 	"strings"
 )
 
+/*
+ * Author: Aidan Scott
+ * repoSetup is for any database creation and configuring before use
+ */
+
 var DB *gorm.DB
 
 /*
