@@ -8,6 +8,12 @@ import (
 )
 
 /*
+ * Author: Aidan Scott
+ * restEndpoints.go is for all Rest related endpoints
+ * todo create validation service and implement it here
+ */
+
+/*
  * FindArticles returns all articles in the database
  */
 func FindArticles(c *gin.Context) {
