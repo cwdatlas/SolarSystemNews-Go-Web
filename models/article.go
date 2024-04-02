@@ -1,5 +1,11 @@
 package models
 
+/*
+ * Author: Aidan Scott
+ * article.go houses the couple types of articles used for validation and storage
+ */
+
+// Used to store articles in database
 type Article struct {
 	ID         uint   `json:"id" gorm:"primary_key"`
 	Title      string `json:"Title"`
@@ -9,16 +15,18 @@ type Article struct {
 	Popularity int    `json:"popularity"`
 }
 
+// Used for creation validation
 type CreateArticleInput struct {
-	Title    string `json:"title" binding:"required" gorm:"size:5"`
-	Author   string `json:"author" binding:"required" gorm:"size:5"`
-	Location string `json:"location" binding:"required" gorm:"size:20"`
-	Body     string `json:"body" binding:"required" gorm:"size:500"`
+	Title    string `json:"title" binding:"required"`
+	Author   string `json:"author" binding:"required"`
+	Location string `json:"location" binding:"required"`
+	Body     string `json:"body" binding:"required"`
 }
 
+// Used for article update validation
 type UpdateArticleInput struct {
-	Title    string `json:"title" gorm:"size:40"`
-	Author   string `json:"author" gorm:"size:40"`
-	Location string `json:"location" gorm:"size:20"`
-	Body     string `json:"body" gorm:"size:500"`
+	Title    string `json:"title"`
+	Author   string `json:"author"`
+	Location string `json:"location"`
+	Body     string `json:"body"`
 }
