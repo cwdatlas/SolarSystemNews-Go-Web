@@ -67,12 +67,14 @@ func ConsumeArtForm(c *gin.Context) {
 		if !validUpdate(newArticle) {
 			log.Println("Form had errors", formErrors)
 			c.Redirect(http.StatusFound, "/create_article")
+			return
 		}
 		var article models.Article
 		if err := repo.DB.Where("title = ?", newArticle.Title).First(&article).Error; err != nil {
 			formErrors["global"] = "No Article named " + newArticle.Title + " found."
 			log.Println(formErrors["global"])
 			c.Redirect(http.StatusFound, "/create_article")
+			return
 		}
 		// set oldArticle to articles value before updated
 		oldArticle := article
@@ -81,19 +83,24 @@ func ConsumeArtForm(c *gin.Context) {
 		if oldArticle == article {
 			formErrors["global"] = "Could Not Update Article"
 			c.Redirect(http.StatusFound, "/create_article")
+			return
 		}
 		// YAY! article was updated!
 		formErrors["success"] = "Article updated successfully"
 		log.Println("Article", newArticle.Title, "added to the database")
 		c.Redirect(http.StatusFound, "/create_article")
+		return
 	} else {
 		// Article needs to be added from scratch
 		if !valid(newArticle) {
 			c.Redirect(http.StatusFound, "/create_article")
+			return
 		}
 		if err := repo.DB.Create(&newArticle).Error; err != nil {
 			formErrors["global"] = "Something went wrong adding your article to our system, try again later"
+			c.Redirect(http.StatusFound, "/create_article")
 			log.Println(err)
+			return
 		}
 		formErrors["success"] = "Article created successfully"
 		c.Redirect(http.StatusFound, "/create_article")
@@ -113,8 +120,8 @@ func valid(article models.Article) bool {
 	// Location validation
 	if article.Location == "" {
 		formErrors["location"] = "Must include a location"
-	} else if len(article.Location) > 20 {
-		formErrors["location"] = "Location length must be less than 20 characters"
+	} else if len(article.Location) > 40 {
+		formErrors["location"] = "Location length must be less than 40 characters"
 	}
 	// Author/date validation
 	if article.Author == "" {
@@ -141,8 +148,8 @@ func validUpdate(article models.Article) bool {
 		formErrors["title"] = "Title length must be less than 40 characters"
 	}
 	// Location validation
-	if article.Location != "" && len(article.Location) > 20 {
-		formErrors["location"] = "Location length must be less than 20 characters"
+	if article.Location != "" && len(article.Location) > 40 {
+		formErrors["location"] = "Location length must be less than 40 characters"
 	}
 	// Author/date validation
 	if article.Author != "" && len(article.Author) > 40 {
