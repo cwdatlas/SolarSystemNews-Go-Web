@@ -28,4 +28,17 @@ Run the program by typing
 go run .
 ```
 
+It will ask for permissions if you are on windows.
+### Web
+Now you can connect at localhost:8080/
+There you can create, Update, or search for an article!
+The search looks through all article's title, author/date, and location, to find your keyword.
+Be careful when making or updating an article, if there are any errors, blank entries or too many characters for an entry,
+then your page will be refreshed, and you will be told the error. This means your work is erased. This is a major bug, save your work elsewhere before you write.
+### update
+If you want to update an article, then click the checkbox at the bottom of the page. 
+To update an article you will need the exact title, so copy it from the article you want to edit.
+Fill in the title entry with the title you want to edit then you can write your change to any other entry and it will replace the current
+section of the article.
+
 Go have fun looking at articles in the program! I hope you like my stories.
