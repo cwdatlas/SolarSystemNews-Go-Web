@@ -3,6 +3,7 @@ package controllers
 import (
 	"SpaceNewsWeb/models"
 	"SpaceNewsWeb/repo"
+	"SpaceNewsWeb/services"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -21,7 +22,7 @@ func Index(c *gin.Context) {
 	title := c.Query("search") // If ?search= is in the get request, then get its value
 	// if it is blank, then search for all articles sorted by popularity then location
 	if len(title) < 1 {
-		repo.DB.Order("popularity desc, location").Find(&articles)
+		services.GetManyOrdered("popularity desc, location", &articles)
 	} else { // Search by if contains search value non caps sensitive
 		generalSearch := "%" + title + "%"
 		if err := repo.DB.Where("title ILIKE ? OR location ILIKE ? OR author ILIKE ?", generalSearch, generalSearch, generalSearch).Find(&articles).Error; err != nil {

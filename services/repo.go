@@ -48,6 +48,9 @@ func GetBy(column string, value string, article *models.Article) error {
 	return nil
 }
 
-func GetMany(article *[]models.Article) {
-	repo.DB.Find(article)
+func GetMany(articles *[]models.Article) {
+	repo.DB.Find(articles)
+}
+func GetManyOrdered(order string, articles *[]models.Article) {
+	repo.DB.Order(order).Find(articles)
 }
