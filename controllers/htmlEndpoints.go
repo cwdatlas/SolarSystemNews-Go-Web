@@ -29,6 +29,7 @@ func Index(c *gin.Context) {
 			error = "Something went wrong, please try again later"
 		}
 	}
+	// Add models to HTML template
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"articles": articles,
 		"title":    "Comet News",
@@ -40,6 +41,7 @@ func Index(c *gin.Context) {
  * FormArticle provides the enpoint for the client to write and update an article
  */
 func FormArticle(c *gin.Context) {
+	// Add models to html template
 	c.HTML(http.StatusOK, "createArticle.html", gin.H{
 		"title":  "Comet News",
 		"errors": formErrors,
