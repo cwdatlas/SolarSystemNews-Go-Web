@@ -9,6 +9,12 @@ import (
 	"net/http"
 )
 
+/*
+ * @Author Aidan Scott
+ * htmlEndpoints.go house the html related endpoints, including form endpoints
+ * todo change repo.db access to service access of the database
+ */
+
 // Map used to pass errors to the article form
 var formErrors = map[string]string{}
 
